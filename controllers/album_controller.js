@@ -13,10 +13,16 @@ const index = async (req, res) => {
 const show = async (req, res) => {
 	const album = await new models.Album({ id: req.params.albumId })
 		.fetch();
+	
+	const albumPhotos = await new models.AlbumPhotos({ album_id: req.params.albumId }).fetchAll();
 
 	res.send({
 		status: 'success',
-		data: album,
+		data: { 
+			id: album.attributes.id,
+			title: album.attributes.title,
+			photos: albumPhotos,
+		},
 	});
 }
 
@@ -60,7 +66,6 @@ const storePhoto = async (req, res) => {
 		album_id: albumId,
 		photo_id: validData.photo_id
 	}
-	console.log(validDataRe);
 	try {
 		const album = await new models.AlbumPhotos(validDataRe).save();
 		
