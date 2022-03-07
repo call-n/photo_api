@@ -14,8 +14,9 @@ const show = async (req, res) => {
 	const album = await new models.Album({ id: req.params.albumId })
 		.fetch();
 	
-	const albumPhotos = await new models.AlbumPhotos({ album_id: req.params.albumId }).fetchAll();
+	const albumPhotos = await new models.AlbumPhotos({ album_id: req.params.albumId }).fetch();
 
+	
 	res.send({
 		status: 'success',
 		data: { 
