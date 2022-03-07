@@ -17,6 +17,7 @@ const createRules = [
 ];
 
 const createRulesAlbumPhoto = [
+	body('album_id').exists(),
 	body('photo_id').exists(),
 ];
 
@@ -27,7 +28,7 @@ const createRulesAlbumPhoto = [
  * Optional: title
  */
 const updateRules = [
-	body('title').optional().isLength({ min: 4 }),
+	body('title').optinal().isLength({ min: 4 }),
 ];
 
 module.exports = {
