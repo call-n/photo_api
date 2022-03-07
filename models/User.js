@@ -3,6 +3,12 @@ const bcrypt = require('bcrypt');
 module.exports = (bookshelf) => {
 	return bookshelf.model('User', {
 		tableName: 'users',
+		albums() {
+			return this.hasMany('albums');
+		},
+		photos() {
+			return this.hasMany('photos');
+		}
 	}, {
 		hashSaltRounds: 10,
 

@@ -11,19 +11,41 @@ const index = async (req, res) => {
 }
 
 const show = async (req, res) => {
+	// this is the album we are searching for
 	const album = await new models.Album({ id: req.params.albumId })
 		.fetch();
 	
-	const albumPhotos = await new models.AlbumPhotos({ album_id: req.params.albumId }).fetch();
+	// this is to get all the albums with photos
+	const albumPhotos = await new models.AlbumPhotos({ album_id: req.params.albumId }).fetchAll();
 
+	// filter out all the photos that are not connected to the specific albumId
+	const photosWithAlbumId = albumPhotos
+	.filter(photo => photo.attributes.album_id == req.params.albumId)
 	
-	res.send({
-		status: 'success',
-		data: { 
-			id: album.attributes.id,
-			title: album.attributes.title,
-			photos: albumPhotos,
-		},
+	const photoIds = []
+	const photos = []
+	// get all the photos from the photos that we got out
+	photosWithAlbumId.map(photo => {
+		photoIds.push(photo.attributes.photo_id)
+	})
+
+	// Loop over all image ids
+	photoIds.forEach( async photo => {
+		photos.push( 
+			await new models.Photo({ id: photo }).fetch()
+		);
+
+		// this triggers when we got all the images fetched
+		if(photoIds.length === photos.length ){
+			res.status(200).send({
+				status: 'success',
+				data: { 
+					id: album.attributes.id,
+					title: album.attributes.title,
+					photos: photos,
+				},
+			})
+		}
 	});
 }
 
