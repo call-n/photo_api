@@ -39,8 +39,16 @@ const login = async (req, res) => {
 }
 
 const refresh = (req, res) => {
+	const [authSchema, token] = req.headers.authorization.split(' ');
+    if (authSchema.toLowerCase() !== "bearer") {
+        return res.status(401).send({
+            status: 'fail',
+            data: 'Authorization failed',
+        });
+    }
 	try {
-		const payload = jwt.verify(req.body.token, process.env.REFRESH_TOKEN_SECRET);
+		
+		const payload = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET);
 
 		delete payload.iat;
 		delete payload.exp;
@@ -89,10 +97,13 @@ const register = async (req, res) => {
 	try {
 		const user = await new models.User(validData).save();
 		
+		console.log(user);
 		res.send({
 			status: 'success',
 			data: {
-				user,
+				email: user.attributes.email,
+				first_name: user.attributes.first_name,
+				last_name: user.attributes.last_name,
 			},
 		});
 
