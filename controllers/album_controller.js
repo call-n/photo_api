@@ -11,9 +11,9 @@ const index = async (req, res) => {
 }
 
 const show = async (req, res) => {
+	
 	// this is the album we are searching for
-	const album = await new models.Album({ id: req.params.albumId })
-		.fetch();
+	const album = await new models.Album({ id: req.params.albumId }).fetch();
 	
 	// this is to get all the albums with photos
 	const albumPhotos = await new models.AlbumPhotos({ album_id: req.params.albumId }).fetchAll();
@@ -57,9 +57,15 @@ const store = async (req, res) => {
 	}
 
 	const validData = matchedData(req);
+	let userId = parseInt(req.user.user_id);
+
+	const validDataRe = { 
+		title: validData.title,
+		user_id: userId
+	}
 
 	try {
-		const album = await new models.Album(validData).save();
+		const album = await new models.Album(validDataRe).save();
 		
 		res.send({
 			status: 'success',
@@ -94,7 +100,7 @@ const storePhoto = async (req, res) => {
 		
 		res.send({
 			status: 'success',
-			data: album,
+			data: null,
 		});
 
 	} catch (error) {

@@ -13,11 +13,9 @@ const models = require('../models');
  */
 const createRules = [
 	body('title').exists().isLength({ min: 4 }),
-	body('user_id').exists(),
 ];
 
 const createRulesAlbumPhoto = [
-	body('album_id').exists(),
 	body('photo_id').exists(),
 ];
 
