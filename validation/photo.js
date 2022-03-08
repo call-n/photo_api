@@ -15,7 +15,6 @@
      body('title').exists().isLength({ min: 4 }),
      body('url').exists().isLength({ min: 4 }).isURL(),
      body('comment').exists().isLength({ min: 4 }),
-     body('user_id').exists(),
  ];
  
  /**

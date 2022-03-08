@@ -27,9 +27,17 @@ const store = async (req, res) => {
     }
  
     const validData = matchedData(req);
+    let userId = parseInt(req.user.user_id);
+
+	const validDataRe = { 
+        title: validData.title,
+        url: validData.url,
+        comment: validData.comment,
+		user_id: userId,
+	}
  
     try {
-        const photo = await new models.Photo(validData).save();
+        const photo = await new models.Photo(validDataRe).save();
        
         res.send({
             status: 'success',
