@@ -2,36 +2,29 @@
  * Photo Validation Rules
  */
 
- const { body } = require('express-validator');
- const models = require('../models');
+const { body } = require('express-validator');
+const models = require('../models');
  
- /**
-  * Create Photo validation rules
-  *
-  * Required: title
-  * Optional: -
-  */
- const createRules = [
-     body('title').exists().isLength({ min: 4 }),
-     body('url').exists().isLength({ min: 4 }).isURL(),
-     body('comment').exists().isLength({ min: 4 }),
- ];
+
+const createRules = [
+    body('title').exists().isLength({ min: 3 }),
+    body('url').exists().isURL(),
+    body('comment').exists().isLength({ min: 3}),
+];
  
- /**
-  * Update Photo validation rules
-  *
-  * Required: -
-  * Optional: title
-  */
- const updateRules = [
-    body('title').optional(),
-    body('url').optional().isURL(),
-    body('comment').optional(),
-    body('user_id').optional(),
- ];
+const getRules = [
+   body('photoId').exists(),
+]
+
+const updateRules = [
+   body('title').optional().isLength({ min: 3}),
+   body('url').optional().isURL(),
+   body('comment').optional().isLength({ min: 3}),
+];
  
- module.exports = {
-     createRules,
-     updateRules,
- }
+module.exports = {
+    createRules,
+    getRules,
+    updateRules,
+}
  

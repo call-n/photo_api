@@ -5,7 +5,7 @@ const photoValidationRules = require('../validation/photo');
 
 router.get('/', photoController.index);
 
-router.get('/:photoId', photoController.show);
+router.get('/:photoId',photoValidationRules.getRules, photoController.show);
 
 router.post('/', photoValidationRules.createRules, photoController.store);
 
