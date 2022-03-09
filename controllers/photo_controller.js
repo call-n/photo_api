@@ -2,8 +2,10 @@ const { matchedData, validationResult } = require('express-validator');
 const models = require('../models');
  
 const index = async (req, res) => {
-    const photos = await models.Photo.fetchAll();
- 
+    const user = await models.User.fetchById(req.user.user_id, { withRelated: ['photos'] });
+
+	const photos = user.related('photos');
+
     res.send({
         status: 'success',
         data: photos,
@@ -11,13 +13,29 @@ const index = async (req, res) => {
 }
  
 const show = async (req, res) => {
-    const photo = await new models.Photo({ id: req.params.photoId })
+    try {
+        const photo = await new models.Photo({ id: req.params.photoId })
         .fetch();
- 
-    res.send({
-        status: 'success',
-        data: photo,
-    });
+
+        if(photo.attributes.user_id === req.user.user_id){
+            res.status(200).send({
+                status: 'success',
+                data: photo,
+            })
+        } else {
+            res.status(401).send({
+                status: 'error',
+                data: 'nonono, its not yours',
+            })
+        }
+
+    } catch (error) {
+        res.status(404).send({
+            status: 'error',
+            data: 'Photo Not Found',
+        });
+        return;
+    }
 }
  
 const store = async (req, res) => {
@@ -74,21 +92,32 @@ const update = async (req, res) => {
  
     const validData = matchedData(req);
  
-    try {
-        const updatedPhoto = await photo.save(validData);
+    const user_id = parseInt(req.user.user_id);
 
-        res.send({
-             status: 'success',
-             data: updatedPhoto,
-        });
- 
-    } catch (error) {
-        res.status(500).send({
+	// just to check that it's the right user
+	if ( photo.attributes.user_id === user_id ) {
+        try {
+            const updatedPhoto = await photo.save(validData);
+    
+            res.send({
+                 status: 'success',
+                 data: updatedPhoto,
+            });
+     
+        } catch (error) {
+            res.status(500).send({
+                status: 'error',
+                message: 'Exception thrown in database when updating a new photo.',
+            });
+            throw error;
+        }
+    } else {
+        res.status(401).send({
             status: 'error',
-            message: 'Exception thrown in database when updating a new photo.',
-        });
-        throw error;
+            data: 'nonono, its not yours',
+        })
     }
+    
 }
  
 module.exports = {
