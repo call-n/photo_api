@@ -1,0 +1,473 @@
+{
+	"info": {
+		"_postman_id": "0faecb9a-87b4-4f84-bc2f-77f9cca99f86",
+		"name": "Photos_api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Albums",
+			"item": [
+				{
+					"name": "/albums",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/albums",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/albums/:albumid",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/albums/1",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/albums",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"shiddamana\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/albums",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:albumId/photos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"photo_id\": 2\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/albums/2/photos",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"2",
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/:albumId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"dababbbycar\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/albums/2",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"albums",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Photos",
+			"item": [
+				{
+					"name": "/photos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/photos",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/photos/:photoid",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/photos/1",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/photos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"dababy, what da dog doin #1337\",\n    \"url\": \"https://images.unsplash.com/photo-1492684223066-81342ee5ff30\",\n    \"comment\": \"hahahaha, ei lemme get a mint\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/photos",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/photos/:photoId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"title\": \"luggen Photo #691\",\n        \"url\": \"https://phubben.com\",\n        \"comment\": \"robbans favvo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://photo-api-fed21.herokuapp.com/photos/1",
+							"protocol": "https",
+							"host": [
+								"photo-api-fed21",
+								"herokuapp",
+								"com"
+							],
+							"path": [
+								"photos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"dababy123@gmail.com\",\n\t\"password\": \"kingen\",\n\t\"first_name\": \"da123\",\n\t\"last_name\": \"baby123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/login",
+			"request": {
+				"auth": {
+					"type": "oauth1",
+					"oauth1": [
+						{
+							"key": "signatureMethod",
+							"value": "HMAC-SHA1",
+							"type": "string"
+						},
+						{
+							"key": "version",
+							"value": "1.0",
+							"type": "string"
+						},
+						{
+							"key": "addParamsToHeader",
+							"value": false,
+							"type": "boolean"
+						},
+						{
+							"key": "addEmptyParamsToSign",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"calln@gmail.com\",\n    \"password\": \"kingen\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://photo-api-fed21.herokuapp.com/login",
+					"protocol": "https",
+					"host": [
+						"photo-api-fed21",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "refresh",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjYyNzM3OCwiZXhwIjoxNjQ3MjMyMTc4fQ.bJtBPWan5XeifRkrLtnI_ukLuWhc1SvuczVBG3YMU-8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJjYWxsbkBnbWFpbC5jb20iLCJ1c2VyX2lkIjoxLCJuYW1lIjoiQ2FsbGUgTmlsc3NvbiIsImlhdCI6MTY0NjgzNzgxMCwiZXhwIjoxNjQ2ODQxNDEwfQ.-WdqK4A7Iu0HuifG2C9AqhJaed08e-LRi6hjoE6Dgts\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://photo-api-fed21.herokuapp.com/refresh",
+					"protocol": "https",
+					"host": [
+						"photo-api-fed21",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"refresh"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
