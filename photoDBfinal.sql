@@ -16,43 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Current Database: `photo`
---
-
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ `photo` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-
-USE `photo`;
-
---
--- Table structure for table `album_photos`
---
-
-DROP TABLE IF EXISTS `album_photos`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `album_photos` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `album_id` int NOT NULL,
-  `photo_id` int NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `album_id` (`album_id`),
-  KEY `photo_id` (`photo_id`),
-  CONSTRAINT `album_photos_ibfk_1` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`),
-  CONSTRAINT `album_photos_ibfk_2` FOREIGN KEY (`photo_id`) REFERENCES `photos` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `album_photos`
---
-
-LOCK TABLES `album_photos` WRITE;
-/*!40000 ALTER TABLE `album_photos` DISABLE KEYS */;
-INSERT INTO `album_photos` VALUES (1,1,1),(2,2,1),(3,1,2),(4,2,2);
-/*!40000 ALTER TABLE `album_photos` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `albums`
 --
 
@@ -66,7 +29,7 @@ CREATE TABLE `albums` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `albums_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,8 +38,37 @@ CREATE TABLE `albums` (
 
 LOCK TABLES `albums` WRITE;
 /*!40000 ALTER TABLE `albums` DISABLE KEYS */;
-INSERT INTO `albums` VALUES (1,'wtf collage',1),(2,'lmfao',1);
+INSERT INTO `albums` VALUES (1,'dababbbycar',1),(2,'lmfao',1),(3,'dudå',1),(4,'wattahell',1),(5,'wattahelllllll',1),(6,'kingkong',1),(7,'kingkongenkung',5),(8,'kingkongenkungsdakkdsa',1);
 /*!40000 ALTER TABLE `albums` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `albums_photos`
+--
+
+DROP TABLE IF EXISTS `albums_photos`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `albums_photos` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `album_id` int NOT NULL,
+  `photo_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `album_id` (`album_id`),
+  KEY `photo_id` (`photo_id`),
+  CONSTRAINT `albums_photos_ibfk_1` FOREIGN KEY (`album_id`) REFERENCES `albums` (`id`),
+  CONSTRAINT `albums_photos_ibfk_2` FOREIGN KEY (`photo_id`) REFERENCES `photos` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `albums_photos`
+--
+
+LOCK TABLES `albums_photos` WRITE;
+/*!40000 ALTER TABLE `albums_photos` DISABLE KEYS */;
+INSERT INTO `albums_photos` VALUES (1,1,1),(2,2,1),(3,1,2),(4,2,2),(5,7,4),(7,7,3),(10,1,1),(11,1,1),(12,1,1),(13,1,3),(14,1,3),(15,1,3),(16,1,3);
+/*!40000 ALTER TABLE `albums_photos` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -95,7 +87,7 @@ CREATE TABLE `photos` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   CONSTRAINT `photos_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +96,7 @@ CREATE TABLE `photos` (
 
 LOCK TABLES `photos` WRITE;
 /*!40000 ALTER TABLE `photos` DISABLE KEYS */;
-INSERT INTO `photos` VALUES (1,'Confetti Photo #8','https://images.unsplash.com/photo-1492684223066-81342ee5ff38','Confettiti',1),(2,'Confetti Photo #2','https://images.unsplash.com/photo-1492684223066-81342ee5ff30','Confetti',1);
+INSERT INTO `photos` VALUES (1,'Confetti Photo #8','https://images.unsplash.com/photo-1492684223066-81342ee5ff38','Confettiti',1),(2,'Confetti Photo #2','https://images.unsplash.com/photo-1492684223066-81342ee5ff30','Confetti',1),(3,'dababy Photo #2','https://images.unsplash.com/photo-1492684223066-81342ee5ff30','dababy',1),(4,'Confetti Photo #69','https://phubben.com','robbans favvo',5),(5,'Confetti Photo #69','https://phubben.com','robbans favvo',1);
 /*!40000 ALTER TABLE `photos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,4 +136,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-07 10:20:34
+-- Dump completed on 2022-03-09 13:03:55
