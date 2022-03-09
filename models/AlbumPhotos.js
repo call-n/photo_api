@@ -1,5 +1,5 @@
 module.exports = (bookshelf) => {
-	return bookshelf.model('AlbumPhotos', {
-		tableName: 'album_photos',
+	return bookshelf.model('AlbumsPhotos', {
+		tableName: 'albums_photos',
 	});
 };
