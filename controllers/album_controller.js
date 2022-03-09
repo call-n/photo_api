@@ -113,7 +113,7 @@ const storePhoto = async (req, res) => {
 		}
 		// just to see if it gets stored
 		try {
-			const album = await new models.AlbumPhotos(validDataRe).save();
+			await new models.AlbumsPhotos(validDataRe).save();
 			
 			res.send({
 				status: 'success',
