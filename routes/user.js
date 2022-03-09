@@ -5,7 +5,7 @@ const userValidationRules = require('../validation/user');
 
 router.post('/register', userValidationRules.createRules, userController.register);
 
-router.post('/login', userController.login);
+router.post('/login', userValidationRules.loginRules, userController.login);
 
 router.post('/refresh', userController.refresh);
 
