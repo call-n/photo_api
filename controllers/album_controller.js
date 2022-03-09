@@ -12,15 +12,23 @@ const index = async (req, res) => {
 	});
 }
 
+// show the album and all it photos
 const show = async (req, res) => {
 	
 	const album = await new models.Album({ id: req.params.albumId })
 		.fetch({ withRelated: ['photos'] });
 
-		res.send({
+	if(album.attributes.user_id === req.user.user_id){
+		res.status(200).send({
 			status: 'success',
 			data: album,
-		});
+		})
+	} else {
+		res.status(401).send({
+			status: 'error',
+			data: 'nonono, its not yours',
+		})
+	}
 }
 
 // store album
@@ -62,27 +70,40 @@ const storePhoto = async (req, res) => {
 		return res.status(422).send({ status: 'fail', data: errors.array() });
 	}
 
-	const validData = matchedData(req);
-	let albumId = parseInt(req.params.albumId);
+	const user_id = parseInt(req.user.user_id);
 
-	const validDataRe = { 
-		album_id: albumId,
-		photo_id: validData.photo_id
-	}
-	try {
-		const album = await new models.AlbumPhotos(validDataRe).save();
+	const album = await new models.Album({ id: req.params.albumId }).fetch();
+
+	// just to check that it's the right user
+	if ( album.attributes.user_id === user_id ) {
 		
-		res.send({
-			status: 'success',
-			data: null,
-		});
+		const validData = matchedData(req);
+		let albumId = parseInt(req.params.albumId);
 
-	} catch (error) {
-		res.status(500).send({
+		const validDataRe = { 
+			album_id: albumId,
+			photo_id: validData.photo_id
+		}
+		try {
+			const album = await new models.AlbumPhotos(validDataRe).save();
+			
+			res.send({
+				status: 'success',
+				data: null,
+			});
+
+		} catch (error) {
+			res.status(500).send({
+				status: 'error',
+				message: 'Exception thrown in database when creating a new album.',
+			});
+			throw error;
+		}
+	} else {
+		res.status(401).send({
 			status: 'error',
-			message: 'Exception thrown in database when creating a new album.',
-		});
-		throw error;
+			message: 'This is not your album',
+		})
 	}
 }
 
@@ -103,22 +124,32 @@ const update = async (req, res) => {
 		return res.status(422).send({ status: 'fail', data: errors.array() });
 	}
 
-	const validData = matchedData(req);
+	const user_id = parseInt(req.user.user_id);
 
-	try {
-		const updatedAlbum = await album.save(validData);
-		
-		res.send({
-			status: 'success',
-			data: updatedAlbum,
-		});
+	// just to check that it's the right user
+	if ( album.attributes.user_id === user_id ) {
+		const validData = matchedData(req);
 
-	} catch (error) {
-		res.status(500).send({
+		try {
+			const updatedAlbum = await album.save(validData);
+			
+			res.send({
+				status: 'success',
+				data: updatedAlbum,
+			});
+
+		} catch (error) {
+			res.status(500).send({
+				status: 'error',
+				message: 'Exception thrown in database when updating a new album.',
+			});
+			throw error;
+		}
+	} else {
+		res.status(401).send({
 			status: 'error',
-			message: 'Exception thrown in database when updating a new album.',
+			message: 'This is not your album',
 		});
-		throw error;
 	}
 }
 
