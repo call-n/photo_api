@@ -2,7 +2,9 @@ const { matchedData, validationResult } = require('express-validator');
 const models = require('../models');
 
 const index = async (req, res) => {
-	const albums = await models.Album.fetchAll();
+	const user = await models.User.fetchById(req.user.user_id, { withRelated: ['albums'] });
+
+	const albums = user.related('albums');
 
 	res.send({
 		status: 'success',
@@ -12,41 +14,13 @@ const index = async (req, res) => {
 
 const show = async (req, res) => {
 	
-	// this is the album we are searching for
-	const album = await new models.Album({ id: req.params.albumId }).fetch();
-	
-	// this is to get all the albums with photos
-	const albumPhotos = await new models.AlbumPhotos({ album_id: req.params.albumId }).fetchAll();
+	const album = await new models.Album({ id: req.params.albumId })
+		.fetch({ withRelated: ['photos'] });
 
-	// filter out all the photos that are not connected to the specific albumId
-	const photosWithAlbumId = albumPhotos
-	.filter(photo => photo.attributes.album_id == req.params.albumId)
-	
-	const photoIds = []
-	const photos = []
-	// get all the photos from the photos that we got out
-	photosWithAlbumId.map(photo => {
-		photoIds.push(photo.attributes.photo_id)
-	})
-
-	// Loop over all image ids
-	photoIds.forEach( async photo => {
-		photos.push( 
-			await new models.Photo({ id: photo }).fetch()
-		);
-
-		// this triggers when we got all the images fetched
-		if(photoIds.length === photos.length ){
-			res.status(200).send({
-				status: 'success',
-				data: { 
-					id: album.attributes.id,
-					title: album.attributes.title,
-					photos: photos,
-				},
-			})
-		}
-	});
+		res.send({
+			status: 'success',
+			data: album,
+		});
 }
 
 // store album
