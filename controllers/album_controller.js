@@ -2,32 +2,47 @@ const { matchedData, validationResult } = require('express-validator');
 const models = require('../models');
 
 const index = async (req, res) => {
-	const user = await models.User.fetchById(req.user.user_id, { withRelated: ['albums'] });
+	try {
+		const user = await models.User.fetchById(req.user.user_id, { withRelated: ['albums'] });
 
-	const albums = user.related('albums');
+		const albums = user.related('albums');
 
-	res.send({
-		status: 'success',
-		data: albums,
-	});
+		res.send({
+			status: 'success',
+			data: albums,
+		});
+	} catch (error) {
+		res.status(404).send({
+			status: 'error',
+			data: 'Album(s) Not Found',
+		});
+		return;
+	}
 }
 
 // show the album and all it photos
 const show = async (req, res) => {
-	
-	const album = await new models.Album({ id: req.params.albumId })
-		.fetch({ withRelated: ['photos'] });
+	try {
+		const album = await new models.Album({ id: req.params.albumId })
+			.fetch({ withRelated: ['photos'] });
 
-	if(album.attributes.user_id === req.user.user_id){
-		res.status(200).send({
-			status: 'success',
-			data: album,
-		})
-	} else {
-		res.status(401).send({
+		if(album.attributes.user_id === req.user.user_id){
+			res.status(200).send({
+				status: 'success',
+				data: album,
+			})
+		} else {
+			res.status(401).send({
+				status: 'error',
+				data: 'nonono, its not yours',
+			})
+		}
+	} catch (error) {
+		res.status(404).send({
 			status: 'error',
-			data: 'nonono, its not yours',
-		})
+			data: 'Album Not Found',
+		});
+		return;
 	}
 }
 
