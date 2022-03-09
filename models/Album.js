@@ -4,8 +4,8 @@ module.exports = (bookshelf) => {
 		users() {
 			return this.belongsTo('User');
 		},
-		albums(){
-			return this.belongsToMany('AlbumPhotos');
+		photos(){
+			return this.belongsToMany('Photo');
 		}
 	});
 };
