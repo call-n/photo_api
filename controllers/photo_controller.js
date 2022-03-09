@@ -2,21 +2,35 @@ const { matchedData, validationResult } = require('express-validator');
 const models = require('../models');
  
 const index = async (req, res) => {
-    const user = await models.User.fetchById(req.user.user_id, { withRelated: ['photos'] });
+    // trycatch if the user doesnt have any photos
+    try {
+        // fetches all the related photos to the user and displays them
+        const user = await models.User.fetchById(req.user.user_id, { withRelated: ['photos'] });
 
-	const photos = user.related('photos');
+        const photos = user.related('photos');
 
-    res.send({
-        status: 'success',
-        data: photos,
-    });
+        res.send({
+            status: 'success',
+            data: photos,
+        });
+    } catch (error) {
+        res.status(404).send({
+            status: 'error',
+            data: 'Photo(s) Not Found',
+        });
+        return;
+    }
 }
  
+// show a specific photo
 const show = async (req, res) => {
+    // trycatch if the photo thats requested dosent exist
     try {
+        // get the photo thats requested
         const photo = await new models.Photo({ id: req.params.photoId })
         .fetch();
 
+        // check ownership of photo
         if(photo.attributes.user_id === req.user.user_id){
             res.status(200).send({
                 status: 'success',
@@ -38,15 +52,19 @@ const show = async (req, res) => {
     }
 }
  
+// store photo
 const store = async (req, res) => {
+    // checks validation rules
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).send({ status: 'fail', data: errors.array() });
     }
  
+    // get the the data for easier access
     const validData = matchedData(req);
     let userId = parseInt(req.user.user_id);
 
+    // format the payload for saving
 	const validDataRe = { 
         title: validData.title,
         url: validData.url,
@@ -54,6 +72,7 @@ const store = async (req, res) => {
 		user_id: userId,
 	}
  
+    // check that it saves correctly to the database
     try {
         const photo = await new models.Photo(validDataRe).save();
        
@@ -71,6 +90,7 @@ const store = async (req, res) => {
     }
 }
  
+// update a photo
 const update = async (req, res) => {
     const photoId = req.params.photoId;
 
@@ -84,18 +104,19 @@ const update = async (req, res) => {
         return;
     }
  
+    // check vaildation rules
     const errors = validationResult(req);
-     
     if (!errors.isEmpty()) {
         return res.status(422).send({ status: 'fail', data: errors.array() });
     }
  
+    // retrieve data for easier access
     const validData = matchedData(req);
- 
     const user_id = parseInt(req.user.user_id);
 
 	// just to check that it's the right user
 	if ( photo.attributes.user_id === user_id ) {
+        // check so that its saves correctly to database
         try {
             const updatedPhoto = await photo.save(validData);
     
